@@ -1,12 +1,17 @@
 import { Outlet } from "react-router";
 import Header from "../components/header/Header";
+import Container from "../container/Container";
 
 const Layout = () => {
   return (
-    <>
+    <div className="min-h-screen">
       <Header />
-      <Outlet />
-    </>
+      <main>
+        <Container>
+          <Outlet />
+        </Container>
+      </main>
+    </div>
   );
 };
 

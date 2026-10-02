@@ -1,6 +1,6 @@
 const Header = () => {
   return (
-    <header className="flex h-18 items-center justify-between bg-header md:h-20 lg:fixed lg:inset-y-0 lg:left-0 lg:z-10 lg:w-25.75 lg:flex-col lg:rounded-r-[20px]">
+    <header className="flex h-18 items-center justify-between bg-header md:h-20 lg:fixed lg:inset-y-0 lg:left-0 lg:z-10 lg:h-auto lg:w-25.75 lg:flex-col lg:rounded-r-[20px]">
       <div className="relative flex size-18 items-center justify-center overflow-hidden rounded-r-[20px] bg-btn md:size-20 lg:size-25.75">
         <span className="absolute inset-x-0 bottom-0 h-1/2 rounded-tl-[20px] bg-deleteHover" />
         <img
