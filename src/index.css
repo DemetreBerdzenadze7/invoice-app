@@ -14,6 +14,7 @@
   --color-bg: #f8f8fb;
   --color-muted: #888eb0;
   --color-name: #858bb2;
+  --color-checkbox: #dfe3fa;
 
   --text-primary: 15px;
   --text-secondary: 13px;
@@ -33,6 +34,7 @@
   --tracking-heading-l: -1.125px;
 
   --shadow-card: 0 10px 10px -10px rgba(72, 84, 159, 0.1);
+  --shadow-dropdown: 0 10px 20px 0 rgba(72, 84, 159, 0.25);
 }
 body {
   font-family: "League Spartan", sans-serif;
