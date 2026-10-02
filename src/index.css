@@ -9,9 +9,32 @@
   --color-paid: #33d69f;
   --color-pending: #ff8f00;
   --color-draft: #373b53;
+  --color-header: #373b53;
+  --color-header-divider: #494e6e;
+  --color-bg: #f8f8fb;
+  --color-muted: #888eb0;
+  --color-name: #858bb2;
+
   --text-primary: 15px;
   --text-secondary: 13px;
+  --text-heading-m: 24px;
+  --text-heading-l: 36px;
+
+  --leading-primary: 15px;
+  --leading-primary-loose: 24px;
+  --leading-secondary: 15px;
+  --leading-body: 18px;
+  --leading-heading-m: 22px;
+  --leading-heading-l: 36px;
+
+  --tracking-primary: -0.25px;
+  --tracking-body: -0.1px;
+  --tracking-heading-m: -0.75px;
+  --tracking-heading-l: -1.125px;
+
+  --shadow-card: 0 10px 10px -10px rgba(72, 84, 159, 0.1);
 }
 body {
   font-family: "League Spartan", sans-serif;
+  background-color: var(--color-bg);
 }
