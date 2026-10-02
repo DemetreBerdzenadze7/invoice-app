@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme {
+  --color-btn: #7c5dfa;
+  --color-delete: #ec5757;
+  --color-deleteHover: #9277ff;
+  --color-title: #0c0e16;
+  --color-description: #7e88c3;
+  --color-paid: #33d69f;
+  --color-pending: #ff8f00;
+  --color-draft: #373b53;
+  --text-primary: 15px;
+  --text-secondary: 13px;
+}
+body {
+  font-family: "League Spartan", sans-serif;
+}
