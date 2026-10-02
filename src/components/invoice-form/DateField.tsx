@@ -1,16 +1,17 @@
+import Calendar from "./Calendar";
+
 const DateField = () => {
   return (
-    <label className="flex flex-col gap-2.25">
+    <div className="flex flex-col gap-2.25">
       <span className="form-label">Invoice Date</span>
-      <span className="relative">
-        <input type="text" className="form-input pr-12" />
-        <img
-          src="/images/icon-calendar.svg"
-          alt=""
-          className="pointer-events-none absolute top-1/2 right-4 -translate-y-1/2"
-        />
-      </span>
-    </label>
+      <details className="group relative">
+        <summary className="form-input flex cursor-pointer list-none items-center justify-between group-open:border-btn [&::-webkit-details-marker]:hidden">
+          21 Aug 2021
+          <img src="/images/icon-calendar.svg" alt="" />
+        </summary>
+        <Calendar />
+      </details>
+    </div>
   );
 };
 

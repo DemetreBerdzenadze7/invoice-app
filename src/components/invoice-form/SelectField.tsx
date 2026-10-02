@@ -1,24 +1,41 @@
 const SelectField = () => {
   return (
-    <label className="flex flex-col gap-2.25">
+    <div className="flex flex-col gap-2.25">
       <span className="form-label">Payment Terms</span>
-      <span className="relative">
-        <select
-          defaultValue="30"
-          className="form-input cursor-pointer appearance-none pr-12"
-        >
-          <option value="1">Net 1 Day</option>
-          <option value="7">Net 7 Days</option>
-          <option value="14">Net 14 Days</option>
-          <option value="30">Net 30 Days</option>
-        </select>
-        <img
-          src="/images/icon-arrow-down.svg"
-          alt=""
-          className="pointer-events-none absolute top-1/2 right-4 -translate-y-1/2"
-        />
-      </span>
-    </label>
+      <details className="group relative">
+        <summary className="form-input flex cursor-pointer list-none items-center justify-between pr-4 group-open:border-btn [&::-webkit-details-marker]:hidden">
+          Net 30 Days
+          <img
+            src="/images/icon-arrow-down.svg"
+            alt=""
+            className="transition-transform group-open:rotate-180"
+          />
+        </summary>
+
+        <ul className="absolute top-full left-0 z-10 mt-6 w-full divide-y divide-field rounded-lg bg-white shadow-dropdown">
+          <li>
+            <button type="button" className="w-full cursor-pointer px-6 py-4 text-left text-primary leading-primary font-bold tracking-primary text-title transition-colors hover:text-btn">
+              Net 1 Day
+            </button>
+          </li>
+          <li>
+            <button type="button" className="w-full cursor-pointer px-6 py-4 text-left text-primary leading-primary font-bold tracking-primary text-title transition-colors hover:text-btn">
+              Net 7 Days
+            </button>
+          </li>
+          <li>
+            <button type="button" className="w-full cursor-pointer px-6 py-4 text-left text-primary leading-primary font-bold tracking-primary text-title transition-colors hover:text-btn">
+              Net 14 Days
+            </button>
+          </li>
+          <li>
+            <button type="button" className="w-full cursor-pointer px-6 py-4 text-left text-primary leading-primary font-bold tracking-primary text-title transition-colors hover:text-btn">
+              Net 30 Days
+            </button>
+          </li>
+        </ul>
+      </details>
+    </div>
   );
 };
 
