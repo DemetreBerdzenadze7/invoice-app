@@ -1,0 +1,28 @@
+interface IInputs {
+  id: string;
+  address: string;
+  city: string;
+  post: string;
+  country: string;
+  clientName: string;
+  clientEmail: string;
+  clientAddress: string;
+  clientCity: string;
+  clientPost: string;
+  clientCountry: string;
+  date: string;
+  payment: string;
+  project: string;
+}
+
+interface IItemLists {
+  itemID: string;
+  itemName: string;
+  quantity: string;
+  price: string;
+}
+
+type TInputs = {
+  inputs: IInputs;
+  itemLists: IItemLists[];
+};
