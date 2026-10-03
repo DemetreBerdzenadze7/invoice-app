@@ -1,13 +1,15 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
+import { useNewInvoice } from "../../context/NewInvoiceContext";
 
 const terms = ["Net 1 Day", "Net 7 Days", "Net 14 Days", "Net 30 Days"];
 
 const SelectField = () => {
-  const [selected, setSelected] = useState("Net 30 Days");
+  const { payment, setPayment } = useNewInvoice();
   const detailsRef = useRef<HTMLDetailsElement>(null);
 
   const handleSelect = (term: string) => {
-    setSelected(term);
+    setPayment(term);
+
     detailsRef.current?.removeAttribute("open");
   };
 
@@ -16,7 +18,7 @@ const SelectField = () => {
       <span className="form-label">Payment Terms</span>
       <details ref={detailsRef} className="group relative">
         <summary className="form-input flex cursor-pointer list-none items-center justify-between pr-4 group-open:border-btn [&::-webkit-details-marker]:hidden">
-          {selected}
+          {payment}
           <img
             src="/images/icon-arrow-down.svg"
             alt=""
@@ -38,7 +40,7 @@ const SelectField = () => {
           ))}
         </ul>
       </details>
-      <input type="hidden" name="paymentTerms" value={selected} />
+      <input type="hidden" name="paymentTerms" value={payment} />
     </div>
   );
 };

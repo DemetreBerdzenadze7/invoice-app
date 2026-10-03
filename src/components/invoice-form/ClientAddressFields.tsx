@@ -1,55 +1,55 @@
 import { useNewInvoice } from "../../context/NewInvoiceContext";
 import FormField from "./FormField";
 
-const AddressFields = () => {
+const ClientAddressFields = () => {
   const {
-    address,
-    setAdress,
-    city,
-    setCity,
-    post,
-    setPost,
-    country,
-    setCountry,
+    clientAddress,
+    setClientAddress,
+    clientCity,
+    setClientCity,
+    clientPost,
+    setClientPost,
+    clientCountry,
+    setClientCountry,
   } = useNewInvoice();
   return (
     <div className="grid grid-cols-2 gap-x-5.75 gap-y-6.25 md:grid-cols-3 md:gap-x-6">
       <FormField
         label="Street Address"
         className="col-span-2 md:col-span-3"
-        value={address}
+        value={clientAddress}
         onChange={
           ((e: { target: { value: string } }) =>
-            setAdress(e.target.value)) as never
+            setClientAddress(e.target.value)) as never
         }
       />
       <FormField
         label="City"
-        value={city}
+        value={clientCity}
         onChange={
           ((e: { target: { value: string } }) =>
-            setCity(e.target.value)) as never
+            setClientCity(e.target.value)) as never
         }
       />
       <FormField
         label="Post Code"
-        value={post}
+        value={clientPost}
         onChange={
           ((e: { target: { value: string } }) =>
-            setPost(e.target.value)) as never
+            setClientPost(e.target.value)) as never
         }
       />
       <FormField
         label="Country"
         className="col-span-2 md:col-span-1"
-        value={country}
+        value={clientCountry}
         onChange={
           ((e: { target: { value: string } }) =>
-            setCountry(e.target.value)) as never
+            setClientCountry(e.target.value)) as never
         }
       />
     </div>
   );
 };
 
-export default AddressFields;
+export default ClientAddressFields;

@@ -7,6 +7,7 @@ import Layout from "./layout/Layout";
 import Home from "./pages/Home";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import { NewInvoiceProvider } from "./context/NewInvoiceContext";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,9 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <NewInvoiceProvider>
+        <RouterProvider router={router} />
+      </NewInvoiceProvider>
     </Provider>
   </StrictMode>,
 );
