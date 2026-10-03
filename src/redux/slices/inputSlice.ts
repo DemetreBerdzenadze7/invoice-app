@@ -65,9 +65,12 @@ const inputsSlice = createSlice({
         invoice.status = "paid";
       }
     },
+    removeInvoice(state, action: PayloadAction<string>) {
+      return state.filter((invoice) => invoice.inputs.id !== action.payload);
+    },
   },
 });
 
-export const { submit, markAsPaid } = inputsSlice.actions;
+export const { submit, markAsPaid, removeInvoice } = inputsSlice.actions;
 
 export default inputsSlice.reducer;

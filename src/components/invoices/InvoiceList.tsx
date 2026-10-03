@@ -3,13 +3,20 @@ import { useSelector } from "react-redux";
 import InvoiceItem from "./InvoiceItem";
 import EmptyState from "./EmptyState";
 import { Link } from "react-router";
+import { useNewInvoice } from "../../context/NewInvoiceContext";
 
 const InvoiceList = () => {
   const invoices = useSelector((store: RootState) => store.inputs);
+  const { checked } = useNewInvoice();
+
+  const filteredInvoices = invoices.filter(
+    (invoice) => !checked || invoice.status === checked,
+  );
+
   return (
     <ul className="flex flex-col gap-4">
-      {invoices.length > 0 ? (
-        invoices.map((invoice) => (
+      {filteredInvoices.length > 0 ? (
+        filteredInvoices.map((invoice) => (
           <Link to={`/invoice/${invoice.inputs.id}`} key={invoice.inputs.id}>
             <InvoiceItem
               id={invoice.inputs.id}

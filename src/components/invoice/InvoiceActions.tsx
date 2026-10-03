@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../redux/store";
-import { markAsPaid } from "../../redux/slices/inputSlice";
+import { markAsPaid, removeInvoice } from "../../redux/slices/inputSlice";
+import { useNavigate } from "react-router";
 
 interface InvoiceActionsProps {
   id: string;
@@ -9,6 +10,7 @@ interface InvoiceActionsProps {
 
 const InvoiceActions = ({ id, status }: InvoiceActionsProps) => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
   return (
     <div className="flex gap-2 text-primary leading-primary font-bold tracking-primary">
@@ -22,6 +24,10 @@ const InvoiceActions = ({ id, status }: InvoiceActionsProps) => {
       <button
         type="button"
         className="h-12 w-22.25 cursor-pointer rounded-full bg-delete pt-px text-white transition-colors hover:bg-delete-hover"
+        onClick={() => {
+          dispatch(removeInvoice(id));
+          navigate("/home");
+        }}
       >
         Delete
       </button>
