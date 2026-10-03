@@ -27,3 +27,6 @@ type TInputs = {
   inputs: IInputs;
   itemLists: IItemLists[];
 };
+
+type TInvoiceForm = Omit<IInputs, "id"> &
+  Pick<IItemLists, "itemName" | "quantity" | "price">;

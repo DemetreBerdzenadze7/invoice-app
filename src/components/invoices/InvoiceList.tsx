@@ -18,6 +18,7 @@ const InvoiceList = () => {
               0,
             )}
             status={"paid"}
+            key={invoice.inputs.id}
           />
         ))
       ) : (

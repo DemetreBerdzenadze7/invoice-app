@@ -16,6 +16,7 @@ const AddressFields = () => {
     <div className="grid grid-cols-2 gap-x-5.75 gap-y-6.25 md:grid-cols-3 md:gap-x-6">
       <FormField
         label="Street Address"
+        name="address"
         className="col-span-2 md:col-span-3"
         value={address}
         onChange={
@@ -25,6 +26,7 @@ const AddressFields = () => {
       />
       <FormField
         label="City"
+        name="city"
         value={city}
         onChange={
           ((e: { target: { value: string } }) =>
@@ -33,6 +35,7 @@ const AddressFields = () => {
       />
       <FormField
         label="Post Code"
+        name="post"
         value={post}
         onChange={
           ((e: { target: { value: string } }) =>
@@ -41,6 +44,7 @@ const AddressFields = () => {
       />
       <FormField
         label="Country"
+        name="country"
         className="col-span-2 md:col-span-1"
         value={country}
         onChange={

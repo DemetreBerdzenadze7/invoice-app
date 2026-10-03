@@ -1,14 +1,17 @@
 import { useRef } from "react";
+import { useFormContext } from "react-hook-form";
 import { useNewInvoice } from "../../context/NewInvoiceContext";
 
 const terms = ["Net 1 Day", "Net 7 Days", "Net 14 Days", "Net 30 Days"];
 
 const SelectField = () => {
+  const { register, setValue } = useFormContext<TInvoiceForm>();
   const { payment, setPayment } = useNewInvoice();
   const detailsRef = useRef<HTMLDetailsElement>(null);
 
   const handleSelect = (term: string) => {
     setPayment(term);
+    setValue("payment", term);
 
     detailsRef.current?.removeAttribute("open");
   };
@@ -40,7 +43,7 @@ const SelectField = () => {
           ))}
         </ul>
       </details>
-      <input type="hidden" name="paymentTerms" value={payment} />
+      <input type="hidden" {...register("payment")} value={payment} />
     </div>
   );
 };
