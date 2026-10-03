@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { useNewInvoice } from "../../context/NewInvoiceContext";
 
@@ -18,7 +19,11 @@ const ItemRow = () => {
     setItemName,
   } = useNewInvoice();
 
-  setTotal(+quantity * +price);
+  useEffect(() => {
+    if (quantity && price) {
+      setTotal(+quantity * +price);
+    }
+  }, [quantity, price, setTotal]);
 
   return (
     <li className="grid items-start grid-cols-[64px_100px_1fr_auto] gap-x-4 gap-y-6.25 md:grid-cols-[214px_46px_100px_1fr_auto]">
@@ -72,7 +77,7 @@ const ItemRow = () => {
       <div className="flex flex-col gap-2.25">
         <span className="form-label md:sr-only">Total</span>
         <p className="flex h-12 items-center text-primary leading-primary font-bold tracking-primary text-muted">
-          {total}
+          {(quantity && price ? total : 0).toFixed(2)}
         </p>
       </div>
 

@@ -1,4 +1,4 @@
-import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import AddressFields from "./AddressFields";
 import ClientAddressFields from "./ClientAddressFields";
 import DateField from "./DateField";
@@ -66,6 +66,20 @@ const InvoiceForm = () => {
     price,
     clientAddress,
     total,
+    setAdress,
+    setCity,
+    setPost,
+    setCountry,
+    setClientCity,
+    setClientPost,
+    setClientCountry,
+    setDate,
+    setPayment,
+    setItemName,
+    setQuantity,
+    setPrice,
+    setClientAddress,
+    setTotal,
   } = useNewInvoice();
 
   const methods = useForm<TInvoiceForm>({
@@ -73,8 +87,8 @@ const InvoiceForm = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<TInvoiceForm> = () => {
-    const dates = dayjs(date).format("DD MMM YYYY");
+  const onSubmit = (status: TStatus) => {
+    const dates = date ? dayjs(date).format("DD MMM YYYY") : "";
 
     const id = handleCreateID();
 
@@ -101,11 +115,29 @@ const InvoiceForm = () => {
         quantity,
         price,
         total,
+        status,
       ),
     );
-  };
 
-  console.log(invoices);
+    setAdress("");
+    setCity("");
+    setPost("");
+    setCountry("");
+    setClientName("");
+    setClientEmail("");
+    setClientAddress("");
+    setClientCity("");
+    setClientPost("");
+    setClientCountry("");
+    setDate("");
+    setPayment("Net 30 Days");
+    setProject("");
+    setItemName("");
+    setQuantity("");
+    setPrice("");
+    setTotal(0);
+    methods.reset({ payment: "Net 30 Days" });
+  };
 
   return (
     <div
@@ -116,7 +148,7 @@ const InvoiceForm = () => {
       <FormProvider {...methods}>
         <form
           className="flex min-h-0 flex-1 flex-col"
-          onSubmit={methods.handleSubmit(onSubmit)}
+          onSubmit={methods.handleSubmit(() => onSubmit("pending"))}
         >
           <div className="flex-1 overflow-y-auto px-6 pt-8.25 pb-22 [scrollbar-color:var(--color-field)_transparent] md:px-14 md:pt-14.75 md:pb-3.75 lg:pb-1.75">
             <button
@@ -188,7 +220,7 @@ const InvoiceForm = () => {
             <ItemList />
           </div>
 
-          <FormActions />
+          <FormActions onDraft={() => onSubmit("draft")} />
         </form>
       </FormProvider>
     </div>

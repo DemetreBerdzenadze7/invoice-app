@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import { NewInvoiceProvider } from "./context/NewInvoiceContext";
+import InvoicePage from "./pages/InvoicePage";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, loader: () => redirect("/home") },
       { path: "home", Component: Home },
+      { path: "/invoice/:id", Component: InvoicePage },
     ],
   },
 ]);

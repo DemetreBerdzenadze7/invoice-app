@@ -17,6 +17,7 @@
   --color-field: #dfe3fa;
   --color-soft: #f9fafe;
   --color-subheading: #777f98;
+  --color-delete-hover: #ff9797;
 
   --text-primary: 15px;
   --text-secondary: 13px;
@@ -31,6 +32,7 @@
   --leading-heading-m: 22px;
   --leading-heading-l: 36px;
   --leading-heading: 32px;
+  --leading-value: 20px;
 
   --tracking-primary: -0.25px;
   --tracking-body: -0.1px;
