@@ -2,6 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNewInvoice } from "../../context/NewInvoiceContext";
 import type { AppDispatch, RootState } from "../../redux/store";
 import { submit } from "../../redux/slices/inputSlice";
+import dayjs from "dayjs";
+import { handleCreateID } from "./formFunctions";
 
 const FormActions = () => {
   const {
@@ -21,28 +23,19 @@ const FormActions = () => {
     quantity,
     price,
     clientAddress,
+    total,
   } = useNewInvoice();
 
-  const inputs = useSelector((store: RootState) => store.inputs);
+  const invoices = useSelector((store: RootState) => store.inputs);
   const dispatch = useDispatch<AppDispatch>();
 
   const handleInvoice = () => {
-    const letters: string[] = [..."ASDFGHJKLMNBVCXZQWERTYUIOP"];
-    const arr: string[] = [];
-    for (let i = 0; i < 2; i++) {
-      const letter1 = letters[Math.floor(Math.random() * letters.length)];
-      arr.push(letter1);
-    }
+    const dates = dayjs(date).format("DD MMM YYYY");
 
-    const numbers: string[] = [..."123456789"];
-    const nums: string[] = [];
-    for (let i = 0; i < 4; i++) {
-      const number = numbers[Math.floor(Math.random() * numbers.length)];
-      nums.push(number);
-    }
+    const id = handleCreateID();
 
-    const id = [...arr, ...nums].join("");
-    const itemID: string = "1";
+    const itemID: string = String(invoices.length);
+
     dispatch(
       submit(
         id,
@@ -56,17 +49,17 @@ const FormActions = () => {
         clientCity,
         clientPost,
         clientCountry,
-        date,
+        dates,
         payment,
         project,
         itemID,
         itemName,
         quantity,
         price,
+        total,
       ),
     );
   };
-  console.log(inputs);
 
   return (
     <div className="relative flex gap-1.75 bg-white px-6 pt-5.25 pb-5.5 text-primary leading-primary font-bold tracking-primary md:gap-2 md:rounded-br-[20px] md:px-14 md:py-8">

@@ -4,7 +4,7 @@ interface InvoiceItemProps {
   id: string;
   due: string;
   name: string;
-  amount: string;
+  amount: number;
   status: "paid" | "pending" | "draft";
 }
 

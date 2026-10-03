@@ -20,6 +20,7 @@ interface IItemLists {
   itemName: string;
   quantity: string;
   price: string;
+  total: number;
 }
 
 type TInputs = {

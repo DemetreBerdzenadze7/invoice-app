@@ -33,6 +33,8 @@ interface States {
   setPrice: (price: string) => void;
   clientAddress: string;
   setClientAddress: (clientAddress: string) => void;
+  total: number;
+  setTotal: (total: number) => void;
 }
 
 const newInvoice = createContext<States | null>(null);
@@ -57,7 +59,8 @@ export const NewInvoiceProvider = ({ children }: NewInvoiceProviderProps) => {
   const [itemName, setItemName] = useState("");
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
-  const [clientAddress, setClientAddress] = useState<string>("");
+  const [clientAddress, setClientAddress] = useState("");
+  const [total, setTotal] = useState(0);
 
   return (
     <newInvoice.Provider
@@ -94,6 +97,8 @@ export const NewInvoiceProvider = ({ children }: NewInvoiceProviderProps) => {
         setClientEmail,
         clientAddress,
         setClientAddress,
+        total,
+        setTotal,
       }}
     >
       {children}

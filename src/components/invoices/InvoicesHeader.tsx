@@ -1,6 +1,9 @@
+import { useSelector } from "react-redux";
 import FilterDropdown from "./FilterDropdown";
+import type { RootState } from "../../redux/store";
 
 const InvoicesHeader = () => {
+  const invoices = useSelector((store: RootState) => store.inputs);
   return (
     <div className="flex items-end justify-between md:items-start">
       <div className="md:mt-px">
@@ -8,7 +11,8 @@ const InvoicesHeader = () => {
           Invoices
         </h1>
         <p className="mt-0.75 text-secondary leading-secondary font-medium tracking-body text-muted">
-          <span className="hidden md:inline">There are </span>7
+          <span className="hidden md:inline">There are </span>
+          {invoices.length}
           <span className="hidden md:inline"> total</span> invoices
         </p>
       </div>

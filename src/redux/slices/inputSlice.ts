@@ -26,6 +26,7 @@ const inputsSlice = createSlice({
         itemName: string,
         quantity: string,
         price: string,
+        total: number,
       ) {
         return {
           payload: {
@@ -45,7 +46,7 @@ const inputsSlice = createSlice({
               payment,
               project,
             },
-            itemLists: [{ itemID, itemName, quantity, price }],
+            itemLists: [{ itemID, itemName, quantity, price, total }],
           },
         };
       },
