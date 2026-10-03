@@ -27,6 +27,7 @@ const inputsSlice = createSlice({
         quantity: string,
         price: string,
         total: number,
+        status: TStatus,
       ) {
         return {
           payload: {
@@ -47,6 +48,7 @@ const inputsSlice = createSlice({
               project,
             },
             itemLists: [{ itemID, itemName, quantity, price, total }],
+            status,
           },
         };
       },
@@ -54,9 +56,18 @@ const inputsSlice = createSlice({
         state.push(action.payload);
       },
     },
+    markAsPaid(state, action: PayloadAction<string>) {
+      const invoice = state.find(
+        (invoice) => invoice.inputs.id === action.payload,
+      );
+
+      if (invoice) {
+        invoice.status = "paid";
+      }
+    },
   },
 });
 
-export const { submit } = inputsSlice.actions;
+export const { submit, markAsPaid } = inputsSlice.actions;
 
 export default inputsSlice.reducer;

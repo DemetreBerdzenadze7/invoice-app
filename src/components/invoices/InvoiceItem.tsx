@@ -4,8 +4,8 @@ interface InvoiceItemProps {
   id: string;
   due: string;
   name: string;
-  amount: number;
-  status: "paid" | "pending" | "draft";
+  amount: string;
+  status: TStatus;
 }
 
 const InvoiceItem = ({ id, due, name, amount, status }: InvoiceItemProps) => {
@@ -26,7 +26,7 @@ const InvoiceItem = ({ id, due, name, amount, status }: InvoiceItemProps) => {
       </p>
 
       <p className="col-start-1 row-start-3 mt-2.25 text-primary leading-primary-loose font-bold tracking-primary text-title md:mt-0 md:text-right">
-        {amount}
+        £ {amount}
       </p>
 
       <div className="col-start-2 row-span-2 row-start-2 mb-1.5 self-end justify-self-end md:mb-0 md:ml-10">

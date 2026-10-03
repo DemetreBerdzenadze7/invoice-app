@@ -23,9 +23,12 @@ interface IItemLists {
   total: number;
 }
 
+type TStatus = "paid" | "pending" | "draft";
+
 type TInputs = {
   inputs: IInputs;
   itemLists: IItemLists[];
+  status: TStatus;
 };
 
 type TInvoiceForm = Omit<IInputs, "id"> &
