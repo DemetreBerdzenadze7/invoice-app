@@ -1,34 +1,24 @@
-import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
-import { useNewInvoice } from "../../context/NewInvoiceContext";
+import { onlyDigits, onlyPrice } from "./formFunctions";
 
 interface ItemRowProps {
-  defaults?: IItemLists;
+  index: number;
+  onRemove: () => void;
 }
 
-const ItemRow = ({ defaults }: ItemRowProps) => {
+const ItemRow = ({ index, onRemove }: ItemRowProps) => {
   const {
     register,
     watch,
     formState: { errors },
   } = useFormContext<TInvoiceForm>();
 
-  const {
-    price,
-    setPrice,
-    quantity,
-    setQuantity,
-    total,
-    setTotal,
-    itemName,
-    setItemName,
-  } = useNewInvoice();
+  const quantity = watch(`items.${index}.quantity`);
+  const price = watch(`items.${index}.price`);
+  const itemErrors = errors.items?.[index];
 
-  useEffect(() => {
-    if (quantity && price) {
-      setTotal(+quantity * +price);
-    }
-  }, [quantity, price, setTotal]);
+  const quantityField = register(`items.${index}.quantity`);
+  const priceField = register(`items.${index}.price`);
 
   return (
     <li className="grid items-start grid-cols-[64px_100px_1fr_auto] gap-x-4 gap-y-6.25 md:grid-cols-[214px_46px_100px_1fr_auto]">
@@ -36,15 +26,11 @@ const ItemRow = ({ defaults }: ItemRowProps) => {
         <span className="form-label md:sr-only">Item Name</span>
         <input
           type="text"
-          className={`form-input ${errors.itemName ? "border-delete!" : ""}`}
-          {...register("itemName", {
-            onChange: (e) => setItemName(e.target.value),
-          })}
-          value={defaults ? undefined : itemName}
-          defaultValue={defaults?.itemName}
+          className={`form-input ${itemErrors?.itemName ? "border-delete!" : ""}`}
+          {...register(`items.${index}.itemName`)}
         />
-        {errors.itemName && (
-          <p className="text-xs text-delete">{errors.itemName.message}</p>
+        {itemErrors?.itemName && (
+          <p className="text-xs text-delete">{itemErrors.itemName.message}</p>
         )}
       </label>
 
@@ -53,15 +39,15 @@ const ItemRow = ({ defaults }: ItemRowProps) => {
         <input
           type="text"
           inputMode="numeric"
-          className={`form-input md:px-0 md:text-center ${errors.quantity ? "border-delete!" : ""}`}
-          {...register("quantity", {
-            onChange: (e) => setQuantity(e.target.value),
-          })}
-          value={defaults ? undefined : quantity}
-          defaultValue={defaults?.quantity}
+          className={`form-input md:px-0 md:text-center ${itemErrors?.quantity ? "border-delete!" : ""}`}
+          {...quantityField}
+          onChange={(e) => {
+            e.target.value = onlyDigits(e.target.value);
+            quantityField.onChange(e);
+          }}
         />
-        {errors.quantity && (
-          <p className="text-xs text-delete">{errors.quantity.message}</p>
+        {itemErrors?.quantity && (
+          <p className="text-xs text-delete">{itemErrors.quantity.message}</p>
         )}
       </label>
 
@@ -70,27 +56,22 @@ const ItemRow = ({ defaults }: ItemRowProps) => {
         <input
           type="text"
           inputMode="decimal"
-          className={`form-input ${errors.price ? "border-delete!" : ""}`}
-          {...register("price", {
-            onChange: (e) => setPrice(e.target.value),
-          })}
-          value={defaults ? undefined : price}
-          defaultValue={defaults?.price}
+          className={`form-input ${itemErrors?.price ? "border-delete!" : ""}`}
+          {...priceField}
+          onChange={(e) => {
+            e.target.value = onlyPrice(e.target.value);
+            priceField.onChange(e);
+          }}
         />
-        {errors.price && (
-          <p className="text-xs text-delete">{errors.price.message}</p>
+        {itemErrors?.price && (
+          <p className="text-xs text-delete">{itemErrors.price.message}</p>
         )}
       </label>
 
       <div className="flex flex-col gap-2.25">
         <span className="form-label md:sr-only">Total</span>
         <p className="flex h-12 items-center text-primary leading-primary font-bold tracking-primary text-muted">
-          {(defaults
-            ? +watch("quantity") * +watch("price") || 0
-            : quantity && price
-              ? total
-              : 0
-          ).toFixed(2)}
+          {(+quantity * +price || 0).toFixed(2)}
         </p>
       </div>
 
@@ -99,6 +80,7 @@ const ItemRow = ({ defaults }: ItemRowProps) => {
         <button
           type="button"
           aria-label="Delete item"
+          onClick={onRemove}
           className="mr-2 flex h-12 cursor-pointer items-center md:mr-0"
         >
           <img src="/images/icon-delete.svg" alt="" />

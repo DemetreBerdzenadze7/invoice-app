@@ -6,9 +6,8 @@ import FormActions from "./FormActions";
 import FormField from "./FormField";
 import ItemList from "./ItemList";
 import SelectField from "./SelectField";
-import type { RootState } from "../../redux/store";
 import dayjs from "dayjs";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { submit } from "../../redux/slices/inputSlice";
 import type { AppDispatch } from "../../redux/store";
 import { handleCreateID } from "./formFunctions";
@@ -16,8 +15,9 @@ import { useNewInvoice } from "../../context/NewInvoiceContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "./invoiceSchema";
 
+const emptyItem: TItemForm = { itemName: "", quantity: "", price: "" };
+
 const InvoiceForm = () => {
-  const invoices = useSelector((store: RootState) => store.inputs);
   const dispatch = useDispatch<AppDispatch>();
 
   const {
@@ -36,11 +36,7 @@ const InvoiceForm = () => {
     payment,
     project,
     setProject,
-    itemName,
-    quantity,
-    price,
     clientAddress,
-    total,
     setAdress,
     setCity,
     setPost,
@@ -50,24 +46,24 @@ const InvoiceForm = () => {
     setClientCountry,
     setDate,
     setPayment,
-    setItemName,
-    setQuantity,
-    setPrice,
     setClientAddress,
-    setTotal,
   } = useNewInvoice();
 
   const methods = useForm<TInvoiceForm>({
-    defaultValues: { payment: "Net 30 Days" },
+    defaultValues: { payment: "Net 30 Days", items: [emptyItem] },
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (status: TStatus) => {
+  const onSubmit = (status: TStatus, items: TItemForm[]) => {
     const dates = date ? dayjs(date).format("DD MMM YYYY") : "";
 
     const id = handleCreateID();
 
-    const itemID: string = String(invoices.length);
+    const itemLists: IItemLists[] = items.map((item, index) => ({
+      ...item,
+      itemID: String(index),
+      total: +item.quantity * +item.price,
+    }));
 
     dispatch(
       submit(
@@ -85,11 +81,7 @@ const InvoiceForm = () => {
         dates,
         payment,
         project,
-        itemID,
-        itemName,
-        quantity,
-        price,
-        total,
+        itemLists,
         status,
       ),
     );
@@ -107,11 +99,7 @@ const InvoiceForm = () => {
     setDate("");
     setPayment("Net 30 Days");
     setProject("");
-    setItemName("");
-    setQuantity("");
-    setPrice("");
-    setTotal(0);
-    methods.reset({ payment: "Net 30 Days" });
+    methods.reset({ payment: "Net 30 Days", items: [emptyItem] });
   };
 
   return (
@@ -123,7 +111,9 @@ const InvoiceForm = () => {
       <FormProvider {...methods}>
         <form
           className="flex min-h-0 flex-1 flex-col"
-          onSubmit={methods.handleSubmit(() => onSubmit("pending"))}
+          onSubmit={methods.handleSubmit((data) =>
+            onSubmit("pending", data.items),
+          )}
         >
           <div className="flex-1 overflow-y-auto px-6 pt-8.25 pb-22 [scrollbar-color:var(--color-field)_transparent] md:px-14 md:pt-14.75 md:pb-3.75 lg:pb-1.75">
             <button
@@ -195,7 +185,9 @@ const InvoiceForm = () => {
             <ItemList />
           </div>
 
-          <FormActions onDraft={() => onSubmit("draft")} />
+          <FormActions
+            onDraft={() => onSubmit("draft", methods.getValues("items"))}
+          />
         </form>
       </FormProvider>
     </div>

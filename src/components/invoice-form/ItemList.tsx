@@ -1,10 +1,10 @@
+import { useFieldArray, useFormContext } from "react-hook-form";
 import ItemRow from "./ItemRow";
 
-interface ItemListProps {
-  defaults?: IItemLists;
-}
+const ItemList = () => {
+  const { control } = useFormContext<TInvoiceForm>();
+  const { fields, append, remove } = useFieldArray({ control, name: "items" });
 
-const ItemList = ({ defaults }: ItemListProps) => {
   return (
     <section className="mt-17.25 md:mt-6.75 lg:mt-8.75">
       <h3 className="text-heading-s leading-heading font-bold tracking-heading-s text-subheading">
@@ -20,11 +20,18 @@ const ItemList = ({ defaults }: ItemListProps) => {
       </div>
 
       <ul className="mt-5.5 flex flex-col gap-12.25 md:mt-3.75 md:gap-4.5">
-        <ItemRow defaults={defaults} />
+        {fields.map((field, index) => (
+          <ItemRow
+            key={field.id}
+            index={index}
+            onRemove={() => remove(index)}
+          />
+        ))}
       </ul>
 
       <button
         type="button"
+        onClick={() => append({ itemName: "", quantity: "", price: "" })}
         className="mt-12 h-12 w-full cursor-pointer rounded-full bg-soft text-primary leading-primary font-bold tracking-primary text-description transition-colors hover:bg-field md:mt-4.5"
       >
         + Add New Item

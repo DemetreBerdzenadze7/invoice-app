@@ -31,5 +31,6 @@ type TInputs = {
   status: TStatus;
 };
 
-type TInvoiceForm = Omit<IInputs, "id"> &
-  Pick<IItemLists, "itemName" | "quantity" | "price">;
+type TItemForm = Pick<IItemLists, "itemName" | "quantity" | "price">;
+
+type TInvoiceForm = Omit<IInputs, "id"> & { items: TItemForm[] };

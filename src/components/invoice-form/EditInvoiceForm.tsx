@@ -37,9 +37,11 @@ const EditInvoiceForm = ({ id }: EditInvoiceFormProps) => {
     defaultValues: found
       ? {
           ...found.inputs,
-          itemName: found.itemLists[0].itemName,
-          quantity: found.itemLists[0].quantity,
-          price: found.itemLists[0].price,
+          items: found.itemLists.map(({ itemName, quantity, price }) => ({
+            itemName,
+            quantity,
+            price,
+          })),
           date,
         }
       : { payment: "Net 30 Days" },
@@ -49,7 +51,7 @@ const EditInvoiceForm = ({ id }: EditInvoiceFormProps) => {
   if (!found) return;
 
   const onSubmit = (data: TInvoiceForm) => {
-    const { itemName, quantity, price, ...inputs } = data;
+    const { items, ...inputs } = data;
 
     dispatch(
       changeInvoice({
@@ -58,15 +60,11 @@ const EditInvoiceForm = ({ id }: EditInvoiceFormProps) => {
           id,
           date: inputs.date ? dayjs(inputs.date).format("DD MMM YYYY") : "",
         },
-        itemLists: [
-          {
-            itemID: found.itemLists[0].itemID,
-            itemName,
-            quantity,
-            price,
-            total: +quantity * +price,
-          },
-        ],
+        itemLists: items.map((item, index) => ({
+          ...item,
+          itemID: String(index),
+          total: +item.quantity * +item.price,
+        })),
         status: found.status,
       }),
     );
@@ -153,7 +151,7 @@ const EditInvoiceForm = ({ id }: EditInvoiceFormProps) => {
               />
             </section>
 
-            <ItemList defaults={found.itemLists[0]} />
+            <ItemList />
           </div>
 
           <EditFormActions />

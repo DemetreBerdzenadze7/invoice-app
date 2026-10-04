@@ -18,3 +18,8 @@ export const handleCreateID = (): string => {
 
   return id;
 };
+
+export const onlyDigits = (value: string): string => value.replace(/\D/g, "");
+
+export const onlyPrice = (value: string): string =>
+  value.replace(/[^\d.]/g, "").replace(/(\..*)\./g, "$1");

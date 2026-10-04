@@ -19,8 +19,22 @@ export const schema = yup.object({
   date: yup.string().required("can’t be empty"),
   payment: yup.string().required("can’t be empty"),
   project: yup.string().required("can’t be empty"),
-  itemName: yup.string().required("can’t be empty"),
-  quantity: yup.string().required("can’t be empty"),
-  price: yup.string().required("can’t be empty"),
+  items: yup
+    .array()
+    .of(
+      yup.object({
+        itemName: yup.string().required("can’t be empty"),
+        quantity: yup
+          .string()
+          .required("can’t be empty")
+          .matches(/^\d+$/, "numbers only"),
+        price: yup
+          .string()
+          .required("can’t be empty")
+          .matches(/^\d+(\.\d+)?$/, "numbers only"),
+      }),
+    )
+    .min(1, "an item must be added")
+    .required(),
   clientAddress: yup.string().required("can’t be empty"),
 });
