@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const getInitialDark = (): boolean => {
   try {
@@ -10,6 +10,32 @@ const getInitialDark = (): boolean => {
 
 const Header = () => {
   const [isDark, setIsDark] = useState(getInitialDark);
+  const openPopovers = useRef<HTMLElement[]>([]);
+  const scrollPositions = useRef<[Element, number][]>([]);
+
+  // popover="auto" closes on any outside click, so remember what was open
+  // before the click and reopen it after toggling the theme
+  const rememberOpenPopovers = () => {
+    openPopovers.current = [
+      ...document.querySelectorAll<HTMLElement>(":popover-open"),
+    ];
+    scrollPositions.current = openPopovers.current
+      .flatMap((popover) => [...popover.querySelectorAll("*")])
+      .filter((el) => el.scrollTop > 0)
+      .map((el) => [el, el.scrollTop]);
+  };
+
+  const handleToggleTheme = () => {
+    setIsDark((prev) => !prev);
+    openPopovers.current.forEach((popover) => {
+      if (!popover.matches(":popover-open")) popover.showPopover();
+    });
+    scrollPositions.current.forEach(([el, top]) => {
+      el.scrollTop = top;
+    });
+    openPopovers.current = [];
+    scrollPositions.current = [];
+  };
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", isDark);
@@ -35,7 +61,8 @@ const Header = () => {
         <button
           type="button"
           aria-label="Toggle theme"
-          onClick={() => setIsDark((prev) => !prev)}
+          onPointerDown={rememberOpenPopovers}
+          onClick={handleToggleTheme}
           className="cursor-pointer px-6 md:px-8 lg:px-0 lg:py-8"
         >
           <img
