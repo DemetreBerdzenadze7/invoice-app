@@ -16,7 +16,7 @@ const FilterDropdown = () => {
         />
       </summary>
 
-      <div className="absolute top-full left-1/2 z-10 mt-5.5 flex w-48 -translate-x-1/2 flex-col gap-3.75 rounded-lg bg-white px-6 pt-6 pb-5.75 shadow-dropdown">
+      <div className="absolute top-full left-1/2 z-10 mt-5.5 flex w-48 -translate-x-1/2 flex-col gap-3.75 rounded-lg bg-dropdown px-6 pt-6 pb-5.75 shadow-dropdown">
         <FilterOption label="Draft" value="draft" onChange={setChecked} />
         <FilterOption label="Pending" value="pending" onChange={setChecked} />
         <FilterOption label="Paid" value="paid" onChange={setChecked} />

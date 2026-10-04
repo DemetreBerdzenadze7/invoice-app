@@ -10,7 +10,7 @@ interface InvoiceItemProps {
 
 const InvoiceItem = ({ id, due, name, amount, status }: InvoiceItemProps) => {
   return (
-    <li className="grid cursor-pointer grid-cols-2 items-center rounded-lg bg-white px-6 pt-6.25 pb-5.5 shadow-card outline-1 -outline-offset-1 outline-transparent transition-colors hover:outline-btn md:flex md:py-4 lg:pl-8">
+    <li className="grid cursor-pointer grid-cols-2 items-center rounded-lg bg-surface px-6 pt-6.25 pb-5.5 shadow-card outline-1 -outline-offset-1 outline-transparent transition-colors hover:outline-btn md:flex md:py-4 lg:pl-8">
       <p className="col-start-1 row-start-1 text-primary leading-primary font-bold tracking-primary text-title md:w-21.75 lg:w-25.75">
         <span className="text-description">#</span>
         {id}

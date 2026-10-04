@@ -10,7 +10,7 @@ const InvoiceDetails = ({ invoice }: InvoiceDetailsProps) => {
   const { inputs, itemLists } = invoice;
 
   return (
-    <div className="rounded-lg bg-white px-6 pt-6.25 pb-6 shadow-card md:px-8 md:pt-8.5 md:pb-8 lg:px-12 lg:pt-12.5 lg:pb-12">
+    <div className="rounded-lg bg-surface px-6 pt-6.25 pb-6 shadow-card md:px-8 md:pt-8.5 md:pb-8 lg:px-12 lg:pt-12.5 lg:pb-12">
       <div className="flex flex-col gap-7.5 md:flex-row md:justify-between">
         <div>
           <p className="text-primary leading-primary font-bold tracking-primary text-title md:leading-primary-loose">

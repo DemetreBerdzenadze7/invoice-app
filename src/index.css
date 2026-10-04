@@ -18,6 +18,15 @@
   --color-soft: #f9fafe;
   --color-subheading: #777f98;
   --color-delete-hover: #ff9797;
+  --color-surface: #ffffff;
+  --color-drawer: #ffffff;
+  --color-dropdown: #ffffff;
+  --color-line: #dfe3fa;
+  --color-soft-hover: #dfe3fa;
+  --color-soft-hover-text: #7e88c3;
+  --color-draft-btn: #373b53;
+  --color-draft-btn-hover: #0c0e16;
+  --color-total: #373b53;
 
   --text-primary: 15px;
   --text-secondary: 13px;
@@ -44,6 +53,27 @@
   --shadow-card: 0 10px 10px -10px rgba(72, 84, 159, 0.1);
   --shadow-dropdown: 0 10px 20px 0 rgba(72, 84, 159, 0.25);
 }
+@custom-variant dark (&:where(.dark, .dark *));
+
+.dark {
+  color-scheme: dark;
+  --color-bg: #141625;
+  --color-surface: #1e2139;
+  --color-drawer: #141625;
+  --color-dropdown: #252945;
+  --color-header: #1e2139;
+  --color-title: #ffffff;
+  --color-description: #dfe3fa;
+  --color-muted: #dfe3fa;
+  --color-name: #ffffff;
+  --color-field: #252945;
+  --color-line: #1e2139;
+  --color-soft: #252945;
+  --color-soft-hover: #ffffff;
+  --color-draft: #dfe3fa;
+  --color-total: #0c0e16;
+}
+
 body {
   font-family: "League Spartan", sans-serif;
   background-color: var(--color-bg);
@@ -63,5 +93,5 @@ body:has(#invoice-form:popover-open, #edit-invoice-form:popover-open) main {
 }
 
 @utility form-input {
-  @apply h-12 w-full rounded-sm border border-field bg-white px-5 text-primary leading-primary font-bold tracking-primary text-title caret-btn outline-none transition-colors hover:border-btn focus:border-btn;
+  @apply h-12 w-full rounded-sm border border-field bg-surface px-5 text-primary leading-primary font-bold tracking-primary text-title caret-btn outline-none transition-colors hover:border-btn focus:border-btn;
 }

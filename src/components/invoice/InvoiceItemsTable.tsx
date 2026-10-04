@@ -39,7 +39,7 @@ const InvoiceItemsTable = ({ items }: InvoiceItemsTableProps) => {
         </ul>
       </div>
 
-      <div className="flex h-20 items-center justify-between bg-draft px-6 text-white md:px-8">
+      <div className="flex h-20 items-center justify-between bg-total px-6 text-white md:px-8">
         <span className="text-secondary leading-body font-medium tracking-body">
           <span className="md:hidden">Grand Total</span>
           <span className="hidden md:inline">Amount Due</span>

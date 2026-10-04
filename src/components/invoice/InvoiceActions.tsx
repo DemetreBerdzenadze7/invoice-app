@@ -17,7 +17,7 @@ const InvoiceActions = ({ id, status }: InvoiceActionsProps) => {
       <button
         type="button"
         popoverTarget="edit-invoice-form"
-        className="h-12 w-18.25 cursor-pointer rounded-full bg-soft pt-px text-description transition-colors hover:bg-field"
+        className="h-12 w-18.25 cursor-pointer rounded-full bg-soft pt-px text-description transition-colors hover:bg-soft-hover hover:text-soft-hover-text"
       >
         Edit
       </button>

@@ -33,7 +33,7 @@ const SelectField = ({ defaultValue }: SelectFieldProps) => {
           />
         </summary>
 
-        <ul className="absolute top-full left-0 z-10 mt-6 w-full divide-y divide-field rounded-lg bg-white shadow-dropdown">
+        <ul className="absolute top-full left-0 z-10 mt-6 w-full divide-y divide-line rounded-lg bg-dropdown shadow-dropdown">
           {terms.map((term) => (
             <li key={term}>
               <button

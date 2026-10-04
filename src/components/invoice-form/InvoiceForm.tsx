@@ -106,7 +106,7 @@ const InvoiceForm = () => {
     <div
       id="invoice-form"
       popover="auto"
-      className="fixed inset-x-0 top-18 bottom-0 hidden h-auto w-full max-w-none flex-col overflow-hidden bg-white open:flex backdrop:top-18 backdrop:bg-black/50 md:top-20 md:w-154 md:rounded-r-[20px] md:backdrop:top-20 lg:top-0 lg:left-25.75 lg:backdrop:top-0 lg:backdrop:left-25.75"
+      className="fixed inset-x-0 top-18 bottom-0 hidden h-auto w-full max-w-none flex-col overflow-hidden bg-drawer open:flex backdrop:top-18 backdrop:bg-black/50 md:top-20 md:w-154 md:rounded-r-[20px] md:backdrop:top-20 lg:top-0 lg:left-25.75 lg:backdrop:top-0 lg:backdrop:left-25.75"
     >
       <FormProvider {...methods}>
         <form

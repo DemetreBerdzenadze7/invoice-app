@@ -32,7 +32,7 @@ const ItemList = () => {
       <button
         type="button"
         onClick={() => append({ itemName: "", quantity: "", price: "" })}
-        className="mt-12 h-12 w-full cursor-pointer rounded-full bg-soft text-primary leading-primary font-bold tracking-primary text-description transition-colors hover:bg-field md:mt-4.5"
+        className="mt-12 h-12 w-full cursor-pointer rounded-full bg-soft text-primary leading-primary font-bold tracking-primary text-description transition-colors hover:bg-soft-hover hover:text-soft-hover-text md:mt-4.5"
       >
         + Add New Item
       </button>
