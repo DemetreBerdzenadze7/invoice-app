@@ -1,75 +1,96 @@
-# React + TypeScript + Vite
+# Invoice App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive invoice management app built with **React 19**, **TypeScript**, **Redux Toolkit** and **Tailwind CSS v4**. You can create, edit, filter and track invoices. Light and dark themes are included, and all data persists in the browser.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- **Create invoices** with sender and client details, invoice date, payment terms, project description and any number of line items
+- **Save as draft** or **Save & Send** (the invoice is stored as *pending*)
+- **Edit invoices** in a slide-in form that opens with the current values filled in
+- **Mark as paid** and **delete** from the invoice detail page
+- **Filter by status**: Draft, Pending or Paid
+- **Form validation** with React Hook Form and Yup: required fields, email format, numeric quantity and price, and at least one item
+- **Totals per line item** that update as you type
+- **Unique invoice IDs** in the format `AB1234`
+- **Light / dark mode** that is remembered between visits
+- **Persistent storage**: invoices are saved to `localStorage` and survive page reloads
+- **Responsive layout**, built mobile-first for phone, tablet and desktop
+- **Empty state** illustration when there are no invoices to show
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
 
-## Expanding the ESLint configuration
+| Category      | Tools                                   |
+| ------------- | --------------------------------------- |
+| Framework     | React 19, TypeScript                    |
+| Build tool    | Vite                                    |
+| State         | Redux Toolkit, React Redux, Context API |
+| Routing       | React Router                            |
+| Forms         | React Hook Form, Yup                    |
+| Styling       | Tailwind CSS v4                         |
+| Dates         | Day.js                                  |
+| Linting       | ESLint, typescript-eslint               |
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Getting Started
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Prerequisites
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- Node.js 20 or newer
+- npm
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Installation
 
+```bash
+git clone <repository-url>
+cd invoice-app
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+### Scripts
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+| Command           | Description                              |
+| ----------------- | ---------------------------------------- |
+| `npm run dev`     | Start the development server             |
+| `npm run build`   | Type-check and build for production      |
+| `npm run preview` | Preview the production build locally     |
+| `npm run lint`    | Run ESLint                               |
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Project Structure
 
 ```
+src/
+├── components/
+│   ├── header/          # App header with theme toggle and avatar
+│   ├── invoices/        # Invoice list, filter dropdown, status badge, empty state
+│   ├── invoice/         # Invoice detail view: info, address, items table, actions
+│   └── invoice-form/    # Create/edit forms, fields, item list, Yup schema
+├── container/           # Page container
+├── context/             # NewInvoiceContext (form and filter state)
+├── layout/              # Root layout
+├── pages/               # Home and InvoicePage routes
+├── redux/
+│   ├── store.ts         # Store setup and localStorage sync
+│   └── slices/          # Invoice slice: submit, edit, mark as paid, remove
+├── types.d.ts           # Shared global types
+├── index.css            # Tailwind theme tokens and dark mode variables
+└── main.tsx             # App entry point and router
+```
+
+## Routes
+
+| Path           | Page                              |
+| -------------- | --------------------------------- |
+| `/`            | Redirects to `/home`              |
+| `/home`        | Invoice list with filter          |
+| `/invoice/:id` | Invoice details and actions       |
+
+## Design
+
+The UI follows the [Frontend Mentor](https://www.frontendmentor.io) Invoice App design. Colors, typography and shadows are defined as Tailwind theme tokens in [src/index.css](src/index.css), and the `.dark` class overrides them for dark mode.
+
+## Author
+
+**Demetre Berdzenadze**
+
+- GitHub: [github.com/DemetreBerdzenadze7](https://github.com/DemetreBerdzenadze7)
