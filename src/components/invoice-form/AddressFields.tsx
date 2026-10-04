@@ -1,7 +1,11 @@
 import { useNewInvoice } from "../../context/NewInvoiceContext";
 import FormField from "./FormField";
 
-const AddressFields = () => {
+interface AddressFieldsProps {
+  defaults?: IInputs;
+}
+
+const AddressFields = ({ defaults }: AddressFieldsProps) => {
   const {
     address,
     setAdress,
@@ -18,7 +22,8 @@ const AddressFields = () => {
         label="Street Address"
         name="address"
         className="col-span-2 md:col-span-3"
-        value={address}
+        value={defaults ? undefined : address}
+        defaultValue={defaults?.address}
         onChange={
           ((e: { target: { value: string } }) =>
             setAdress(e.target.value)) as never
@@ -27,7 +32,8 @@ const AddressFields = () => {
       <FormField
         label="City"
         name="city"
-        value={city}
+        value={defaults ? undefined : city}
+        defaultValue={defaults?.city}
         onChange={
           ((e: { target: { value: string } }) =>
             setCity(e.target.value)) as never
@@ -36,7 +42,8 @@ const AddressFields = () => {
       <FormField
         label="Post Code"
         name="post"
-        value={post}
+        value={defaults ? undefined : post}
+        defaultValue={defaults?.post}
         onChange={
           ((e: { target: { value: string } }) =>
             setPost(e.target.value)) as never
@@ -46,7 +53,8 @@ const AddressFields = () => {
         label="Country"
         name="country"
         className="col-span-2 md:col-span-1"
-        value={country}
+        value={defaults ? undefined : country}
+        defaultValue={defaults?.country}
         onChange={
           ((e: { target: { value: string } }) =>
             setCountry(e.target.value)) as never

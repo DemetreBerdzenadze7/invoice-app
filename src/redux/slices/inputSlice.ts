@@ -68,9 +68,16 @@ const inputsSlice = createSlice({
     removeInvoice(state, action: PayloadAction<string>) {
       return state.filter((invoice) => invoice.inputs.id !== action.payload);
     },
+    changeInvoice(state, action: PayloadAction<TInputs>) {
+      return state.map((invoice) =>
+        invoice.inputs.id === action.payload.inputs.id
+          ? action.payload
+          : invoice,
+      );
+    },
   },
 });
 
-export const { submit, markAsPaid, removeInvoice } = inputsSlice.actions;
+export const { submit, markAsPaid, removeInvoice, changeInvoice } = inputsSlice.actions;
 
 export default inputsSlice.reducer;

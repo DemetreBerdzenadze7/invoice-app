@@ -2,9 +2,14 @@ import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { useNewInvoice } from "../../context/NewInvoiceContext";
 
-const ItemRow = () => {
+interface ItemRowProps {
+  defaults?: IItemLists;
+}
+
+const ItemRow = ({ defaults }: ItemRowProps) => {
   const {
     register,
+    watch,
     formState: { errors },
   } = useFormContext<TInvoiceForm>();
 
@@ -35,7 +40,8 @@ const ItemRow = () => {
           {...register("itemName", {
             onChange: (e) => setItemName(e.target.value),
           })}
-          value={itemName}
+          value={defaults ? undefined : itemName}
+          defaultValue={defaults?.itemName}
         />
         {errors.itemName && (
           <p className="text-xs text-delete">{errors.itemName.message}</p>
@@ -51,7 +57,8 @@ const ItemRow = () => {
           {...register("quantity", {
             onChange: (e) => setQuantity(e.target.value),
           })}
-          value={quantity}
+          value={defaults ? undefined : quantity}
+          defaultValue={defaults?.quantity}
         />
         {errors.quantity && (
           <p className="text-xs text-delete">{errors.quantity.message}</p>
@@ -67,7 +74,8 @@ const ItemRow = () => {
           {...register("price", {
             onChange: (e) => setPrice(e.target.value),
           })}
-          value={price}
+          value={defaults ? undefined : price}
+          defaultValue={defaults?.price}
         />
         {errors.price && (
           <p className="text-xs text-delete">{errors.price.message}</p>
@@ -77,7 +85,12 @@ const ItemRow = () => {
       <div className="flex flex-col gap-2.25">
         <span className="form-label md:sr-only">Total</span>
         <p className="flex h-12 items-center text-primary leading-primary font-bold tracking-primary text-muted">
-          {(quantity && price ? total : 0).toFixed(2)}
+          {(defaults
+            ? +watch("quantity") * +watch("price") || 0
+            : quantity && price
+              ? total
+              : 0
+          ).toFixed(2)}
         </p>
       </div>
 

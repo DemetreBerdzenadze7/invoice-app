@@ -4,8 +4,12 @@ import { useNewInvoice } from "../../context/NewInvoiceContext";
 
 const terms = ["Net 1 Day", "Net 7 Days", "Net 14 Days", "Net 30 Days"];
 
-const SelectField = () => {
-  const { register, setValue } = useFormContext<TInvoiceForm>();
+interface SelectFieldProps {
+  defaultValue?: string;
+}
+
+const SelectField = ({ defaultValue }: SelectFieldProps) => {
+  const { register, setValue, watch } = useFormContext<TInvoiceForm>();
   const { payment, setPayment } = useNewInvoice();
   const detailsRef = useRef<HTMLDetailsElement>(null);
 
@@ -21,7 +25,7 @@ const SelectField = () => {
       <span className="form-label">Payment Terms</span>
       <details ref={detailsRef} className="group relative">
         <summary className="form-input flex cursor-pointer list-none items-center justify-between pr-4 group-open:border-btn [&::-webkit-details-marker]:hidden">
-          {payment}
+          {defaultValue ? watch("payment") : payment}
           <img
             src="/images/icon-arrow-down.svg"
             alt=""
@@ -43,7 +47,12 @@ const SelectField = () => {
           ))}
         </ul>
       </details>
-      <input type="hidden" {...register("payment")} value={payment} />
+      <input
+        type="hidden"
+        {...register("payment")}
+        value={defaultValue ? undefined : payment}
+        defaultValue={defaultValue}
+      />
     </div>
   );
 };

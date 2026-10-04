@@ -1,7 +1,11 @@
 import { useFormContext } from "react-hook-form";
 import { useNewInvoice } from "../../context/NewInvoiceContext";
 
-const DateField = () => {
+interface DateFieldProps {
+  defaultValue?: string;
+}
+
+const DateField = ({ defaultValue }: DateFieldProps) => {
   const {
     register,
     formState: { errors },
@@ -19,7 +23,8 @@ const DateField = () => {
         {...register("date", {
           onChange: (e) => setDate(e.target.value),
         })}
-        value={date}
+        value={defaultValue ? undefined : date}
+        defaultValue={defaultValue}
         className={`form-input ${errors.date ? "border-delete!" : ""} cursor-pointer pr-4 [&::-webkit-calendar-picker-indicator]:size-4 [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:bg-[url(/images/icon-calendar.svg)] [&::-webkit-calendar-picker-indicator]:bg-center [&::-webkit-calendar-picker-indicator]:bg-no-repeat [&::-webkit-calendar-picker-indicator]:p-0`}
       />
       {errors.date && (

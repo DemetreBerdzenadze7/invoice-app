@@ -1,6 +1,10 @@
 import ItemRow from "./ItemRow";
 
-const ItemList = () => {
+interface ItemListProps {
+  defaults?: IItemLists;
+}
+
+const ItemList = ({ defaults }: ItemListProps) => {
   return (
     <section className="mt-17.25 md:mt-6.75 lg:mt-8.75">
       <h3 className="text-heading-s leading-heading font-bold tracking-heading-s text-subheading">
@@ -16,7 +20,7 @@ const ItemList = () => {
       </div>
 
       <ul className="mt-5.5 flex flex-col gap-12.25 md:mt-3.75 md:gap-4.5">
-        <ItemRow />
+        <ItemRow defaults={defaults} />
       </ul>
 
       <button

@@ -16,6 +16,7 @@ const InvoiceActions = ({ id, status }: InvoiceActionsProps) => {
     <div className="flex gap-2 text-primary leading-primary font-bold tracking-primary">
       <button
         type="button"
+        popoverTarget="edit-invoice-form"
         className="h-12 w-18.25 cursor-pointer rounded-full bg-soft pt-px text-description transition-colors hover:bg-field"
       >
         Edit

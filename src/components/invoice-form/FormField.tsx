@@ -6,7 +6,8 @@ interface FormFieldProps {
   name: keyof TInvoiceForm;
   type?: string;
   className?: string;
-  value: string;
+  value?: string;
+  defaultValue?: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
 }
 
@@ -16,6 +17,7 @@ const FormField = ({
   type = "text",
   className = "",
   value,
+  defaultValue,
   onChange,
 }: FormFieldProps) => {
   const {
@@ -30,6 +32,7 @@ const FormField = ({
         className={`form-input ${errors[name] ? "border-delete!" : ""}`}
         {...register(name, { onChange })}
         value={value}
+        defaultValue={defaultValue}
       />
       {errors[name] && (
         <p className="text-xs text-delete">{errors[name].message}</p>

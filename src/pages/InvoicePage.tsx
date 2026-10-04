@@ -5,6 +5,7 @@ import GoBack from "../components/invoice/GoBack";
 import InvoiceStatusBar from "../components/invoice/InvoiceStatusBar";
 import InvoiceDetails from "../components/invoice/InvoiceDetails";
 import InvoiceActions from "../components/invoice/InvoiceActions";
+import EditInvoiceForm from "../components/invoice-form/EditInvoiceForm";
 
 const InvoicePage = () => {
   const { id } = useParams();
@@ -29,6 +30,8 @@ const InvoicePage = () => {
       <div className="-mx-6 mt-14 bg-white px-6 pt-5.25 pb-5.5 md:hidden">
         <InvoiceActions id={invoice.inputs.id} status={invoice.status} />
       </div>
+
+      <EditInvoiceForm id={invoice.inputs.id} />
     </section>
   );
 };
