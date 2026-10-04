@@ -49,6 +49,15 @@ body {
   background-color: var(--color-bg);
 }
 
+body:has(#invoice-form:popover-open, #edit-invoice-form:popover-open) main {
+  pointer-events: none;
+}
+
+#invoice-form,
+#edit-invoice-form {
+  pointer-events: auto;
+}
+
 @utility form-label {
   @apply text-secondary leading-secondary font-medium tracking-body text-description;
 }

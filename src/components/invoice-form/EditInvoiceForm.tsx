@@ -7,10 +7,13 @@ import FormField from "./FormField";
 import ItemList from "./ItemList";
 import SelectField from "./SelectField";
 import { useNewInvoice } from "../../context/NewInvoiceContext";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import type { RootState } from "../../redux/store";
+import type { AppDispatch, RootState } from "../../redux/store";
+import { changeInvoice } from "../../redux/slices/inputSlice";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { schema } from "./invoiceSchema";
 
 dayjs.extend(customParseFormat);
 
@@ -20,23 +23,56 @@ interface EditInvoiceFormProps {
 
 const EditInvoiceForm = ({ id }: EditInvoiceFormProps) => {
   const invoices = useSelector((store: RootState) => store.inputs);
+  const dispatch = useDispatch<AppDispatch>();
+
   const { setClientName, setClientEmail, setProject } = useNewInvoice();
 
   const found = invoices.find((invoice) => invoice.inputs.id === id);
 
-  if (!found) return;
-
-  const date = found.inputs.date
+  const date = found?.inputs.date
     ? dayjs(found.inputs.date, "DD MMM YYYY").format("YYYY-MM-DD")
     : "";
 
   const methods = useForm<TInvoiceForm>({
-    defaultValues: { ...found.inputs, ...found.itemLists[0], date },
+    defaultValues: found
+      ? {
+          ...found.inputs,
+          itemName: found.itemLists[0].itemName,
+          quantity: found.itemLists[0].quantity,
+          price: found.itemLists[0].price,
+          date,
+        }
+      : { payment: "Net 30 Days" },
+    resolver: yupResolver(schema),
   });
 
-  const onSubmit = () => {
-    
-  }
+  if (!found) return;
+
+  const onSubmit = (data: TInvoiceForm) => {
+    const { itemName, quantity, price, ...inputs } = data;
+
+    dispatch(
+      changeInvoice({
+        inputs: {
+          ...inputs,
+          id,
+          date: inputs.date ? dayjs(inputs.date).format("DD MMM YYYY") : "",
+        },
+        itemLists: [
+          {
+            itemID: found.itemLists[0].itemID,
+            itemName,
+            quantity,
+            price,
+            total: +quantity * +price,
+          },
+        ],
+        status: found.status,
+      }),
+    );
+
+    document.getElementById("edit-invoice-form")?.hidePopover();
+  };
 
   return (
     <div
@@ -45,7 +81,10 @@ const EditInvoiceForm = ({ id }: EditInvoiceFormProps) => {
       className="fixed inset-x-0 top-18 bottom-0 hidden h-auto w-full max-w-none flex-col overflow-hidden bg-white open:flex backdrop:top-18 backdrop:bg-black/50 md:top-20 md:w-154 md:rounded-r-[20px] md:backdrop:top-20 lg:top-0 lg:left-25.75 lg:backdrop:top-0 lg:backdrop:left-25.75"
     >
       <FormProvider {...methods}>
-        <form className="flex min-h-0 flex-1 flex-col">
+        <form
+          className="flex min-h-0 flex-1 flex-col"
+          onSubmit={methods.handleSubmit(onSubmit)}
+        >
           <div className="flex-1 overflow-y-auto px-6 pt-8.25 pb-22 [scrollbar-color:var(--color-field)_transparent] md:px-14 md:pt-14.75 md:pb-3.75 lg:pb-1.75">
             <button
               type="button"

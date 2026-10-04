@@ -78,6 +78,7 @@ const inputsSlice = createSlice({
   },
 });
 
-export const { submit, markAsPaid, removeInvoice, changeInvoice } = inputsSlice.actions;
+export const { submit, markAsPaid, removeInvoice, changeInvoice } =
+  inputsSlice.actions;
 
 export default inputsSlice.reducer;

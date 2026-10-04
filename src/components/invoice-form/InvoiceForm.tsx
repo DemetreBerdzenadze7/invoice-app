@@ -14,36 +14,11 @@ import type { AppDispatch } from "../../redux/store";
 import { handleCreateID } from "./formFunctions";
 import { useNewInvoice } from "../../context/NewInvoiceContext";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import { schema } from "./invoiceSchema";
 
 const InvoiceForm = () => {
   const invoices = useSelector((store: RootState) => store.inputs);
   const dispatch = useDispatch<AppDispatch>();
-
-  const schema = yup.object({
-    address: yup.string().required("can’t be empty"),
-    city: yup.string().required("can’t be empty"),
-    post: yup.string().required("can’t be empty"),
-    country: yup.string().required("can’t be empty"),
-    clientName: yup.string().required("can’t be empty"),
-    clientEmail: yup
-      .string()
-      .required("can’t be empty")
-      .matches(
-        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-        "invalid email",
-      ),
-    clientCity: yup.string().required("can’t be empty"),
-    clientPost: yup.string().required("can’t be empty"),
-    clientCountry: yup.string().required("can’t be empty"),
-    date: yup.string().required("can’t be empty"),
-    payment: yup.string().required("can’t be empty"),
-    project: yup.string().required("can’t be empty"),
-    itemName: yup.string().required("can’t be empty"),
-    quantity: yup.string().required("can’t be empty"),
-    price: yup.string().required("can’t be empty"),
-    clientAddress: yup.string().required("can’t be empty"),
-  });
 
   const {
     address,
